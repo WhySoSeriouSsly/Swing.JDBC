@@ -13,6 +13,9 @@ import javax.swing.JPanel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
 
+import Business.Validation.Validator;
+import Core.Utilities.Messages.Messages;
+import Core.Utilities.Messages.SqlCommand;
 import DataAccess.DbHelper;
 import Entities.Country;
 
@@ -50,12 +53,14 @@ public class test extends JFrame {
 	private JButton btnSave;
 	private JButton btnDelete;
 	private JButton btnUpdate;
-	private JLabel lblMessage;
 	private JMenuBar menuBar;
 	private JMenu mnMenu1;
-	private JMenuItem mnýtmNewMenuItem;
+	private JMenuItem mnSearchCountryName;
 	private JMenu mMenu2;
 	private JTextField txtSearchKey;
+	private JMenuItem mnSearchCountryCode;
+	private JMenuItem mnSearchCountryRegion;
+	private JLabel lblMessage;
 
 	/**
 	 * Launch the application.
@@ -88,7 +93,7 @@ public class test extends JFrame {
 		setBounds(100, 100, 755, 592);
 		contentPane = new JPanel();
 		setContentPane(contentPane);
-		this.setSize(750, 600);
+		this.setSize(753, 601);
 		JScrollPane scrollPane = new JScrollPane();
 		scrollPane.setViewportBorder(null);
 		scrollPane.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
@@ -105,16 +110,29 @@ public class test extends JFrame {
 		mnMenu1.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		menuBar.add(mnMenu1);
 
-		mnýtmNewMenuItem = new JMenuItem("New menu item");
-		mnýtmNewMenuItem.addActionListener(new ActionListener() {
+		mnSearchCountryName = new JMenuItem("Search by Country Name");
+		mnSearchCountryName.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				newForm form = new newForm();
 				form.setVisible(true);
-				 dispose();    
+				dispose();
 			}
 		});
 
-		mnMenu1.add(mnýtmNewMenuItem);
+		mnSearchCountryCode = new JMenuItem("Search by Country Code");
+		mnSearchCountryCode.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				searchbycountrycode searchForm = new searchbycountrycode();
+				searchForm.setVisible(true);
+				dispose();
+			}
+		});
+		mnMenu1.add(mnSearchCountryCode);
+
+		mnMenu1.add(mnSearchCountryName);
+
+		mnSearchCountryRegion = new JMenuItem("Search by Region");
+		mnMenu1.add(mnSearchCountryRegion);
 
 		mMenu2 = new JMenu("Menu 2");
 		mMenu2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
@@ -139,7 +157,6 @@ public class test extends JFrame {
 
 		txtRegion = new JTextField();
 		txtRegion.setColumns(10);
-		lblMessage = new JLabel("");
 		btnSave = new JButton("Save");
 		btnSave.addActionListener(new ActionListener() {
 			public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -179,6 +196,15 @@ public class test extends JFrame {
 
 		txtSearchKey.setColumns(10);
 
+		lblMessage = new JLabel("");
+
+		JButton btnSelectDelete = new JButton("Select Delete");
+		btnSelectDelete.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnDeletedSelectedActionPerfomerd(arg0);
+			}
+		});
+
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
 		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
 				.createSequentialGroup()
@@ -217,31 +243,31 @@ public class test extends JFrame {
 												GroupLayout.PREFERRED_SIZE))))
 						.addGroup(gl_contentPane.createSequentialGroup().addGap(64).addGroup(gl_contentPane
 								.createParallelGroup(Alignment.LEADING)
+								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 609, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_contentPane.createSequentialGroup()
 										.addComponent(lblSearchKey, GroupLayout.PREFERRED_SIZE, 71,
 												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(txtSearchKey,
-												GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 609,
+										.addPreferredGap(ComponentPlacement.UNRELATED)
+										.addComponent(txtSearchKey, GroupLayout.PREFERRED_SIZE, 146,
 												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED).addComponent(lblMessage,
-												GroupLayout.PREFERRED_SIZE, 157, GroupLayout.PREFERRED_SIZE)))))
-				.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+										.addPreferredGap(ComponentPlacement.RELATED, 279, Short.MAX_VALUE)
+										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+												.addGroup(Alignment.TRAILING,
+														gl_contentPane.createSequentialGroup().addComponent(lblMessage)
+																.addGap(1))
+												.addGroup(Alignment.TRAILING,
+														gl_contentPane.createSequentialGroup()
+																.addComponent(btnSelectDelete).addGap(48)))))))
+				.addContainerGap(24, Short.MAX_VALUE)));
 		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
 				.createSequentialGroup()
 				.addComponent(menuBar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE).addGap(34)
-				.addGroup(gl_contentPane
-						.createParallelGroup(Alignment.BASELINE).addComponent(lblSearchKey).addComponent(txtSearchKey,
-								GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblSearchKey)
+						.addComponent(txtSearchKey, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
+								GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblMessage).addComponent(btnSelectDelete))
 				.addPreferredGap(ComponentPlacement.UNRELATED)
-				.addGroup(
-						gl_contentPane.createParallelGroup(Alignment.TRAILING)
-								.addGroup(gl_contentPane.createSequentialGroup().addComponent(lblMessage).addGap(55))
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 271,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(18)))
+				.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 271, GroupLayout.PREFERRED_SIZE).addGap(18)
 				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 						.addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(lblCountryCode))
 						.addComponent(txtCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
@@ -268,11 +294,6 @@ public class test extends JFrame {
 		// pack()=lock.
 	}
 
-	private void newSecondForm() {
-		newForm form = new newForm();
-		form.setVisible(true);
-	}
-
 	private void txtSearchKeyReleased(java.awt.event.KeyEvent evt) {// GEN-FIRST:event_txtSearchKeyReleased
 		String searchKey = txtSearchKey.getText();
 		TableRowSorter<DefaultTableModel> tableRowSorter = new TableRowSorter<DefaultTableModel>(model);
@@ -280,7 +301,7 @@ public class test extends JFrame {
 		tableRowSorter.setRowFilter(RowFilter.regexFilter(searchKey));
 	}// GEN-LAST:event_txtSearchKeyReleased
 
-	public void populateTable() {
+	private void populateTable() {
 
 		model = (DefaultTableModel) table.getModel();
 		model.setRowCount(0);
@@ -295,7 +316,7 @@ public class test extends JFrame {
 		}
 	}
 
-	public ArrayList<Country> getCountries() throws SQLException {
+	private ArrayList<Country> getCountries() throws SQLException {
 		Connection connection = null;
 		DbHelper dbHelper = new DbHelper();
 		Statement statement = null;
@@ -305,7 +326,7 @@ public class test extends JFrame {
 		try {
 			connection = dbHelper.getConnection();
 			statement = connection.createStatement();
-			resultSet = statement.executeQuery("select * from country");
+			resultSet = statement.executeQuery(SqlCommand.SearchCountry);
 			countries = new ArrayList<Country>();
 			while (resultSet.next()) {
 				countries.add(new Country(resultSet.getString("Code"), resultSet.getString("Name"),
@@ -321,23 +342,29 @@ public class test extends JFrame {
 		return countries;
 	}
 
-	public void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
+	private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
 		Connection connection = null;
 		DbHelper dbHelper = new DbHelper();
 		PreparedStatement statement = null;
 		try {
 			connection = dbHelper.getConnection();
-			String sql = "insert into country (Code,Name,Population,Region) values(?,?,?,?)";
+			String sql = SqlCommand.CountryAdd;
 			statement = connection.prepareStatement(sql);
+			if (Validator.validate(txtCode) == false || Validator.validate(txtCountryName) == false
+					|| Validator.validate(txtPopulation) == false || Validator.validate(txtRegion) == false) {
+				JOptionPane.showMessageDialog(null, Messages.ValidationException);
+				return;
+			}
 			statement.setString(1, txtCode.getText());
 			statement.setString(2, txtCountryName.getText());
 			statement.setInt(3, Integer.valueOf(txtPopulation.getText()));
 			statement.setString(4, txtRegion.getText());
 			int result = statement.executeUpdate();
 			populateTable();
-			lblMessage.setText("Country Added");
+			JOptionPane.showMessageDialog(null, Messages.ProductAdded);
+			// lblMessage.setText("Country Added");
 		} catch (SQLException exception) {
-			JOptionPane.showMessageDialog(null, "InfoBox:Product Not Added");
+			JOptionPane.showMessageDialog(null, Messages.ProductNotAdded);
 			dbHelper.showErrorMessage(exception);
 
 		} finally {
@@ -349,22 +376,28 @@ public class test extends JFrame {
 			}
 		}
 	}
-
-	public void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
+	//POST
+	private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
 		Connection connection = null;
 		DbHelper helper = new DbHelper();
 		PreparedStatement statement = null;
 		ResultSet resultSet;
 		try {
 			connection = helper.getConnection();
-			String sql = "delete from country where code = ?";
+			String sql = SqlCommand.CountryDelete;
 			statement = connection.prepareStatement(sql);
+			if (Validator.validate(txtCode) == false) {
+				JOptionPane.showMessageDialog(null, Messages.ValidationException);
+				return;
+			}
 			statement.setString(1, txtCode.getText());
 			int result = statement.executeUpdate();
 			populateTable();
-			System.out.println("Kayýt silindi");
-			lblMessage.setText("Country Deleted" + txtCode.getText());
+			JOptionPane.showMessageDialog(null, Messages.ProductDeleted);
+			// System.out.println("Kayýt silindi");
+			// lblMessage.setText("Country Deleted" + txtCode.getText());
 		} catch (SQLException exception) {
+			JOptionPane.showMessageDialog(null, Messages.ProductNotDeleted);
 			helper.showErrorMessage(exception);
 		} finally {
 			try {
@@ -376,24 +409,32 @@ public class test extends JFrame {
 		}
 	}
 
-	public void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
+	// POST
+	private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
 		Connection connection = null;
 		DbHelper helper = new DbHelper();
 		PreparedStatement statement = null;
 		ResultSet resultSet;
 		try {
 			connection = helper.getConnection();
-			String sql = "update country set Name=?,Population=?,Region=? where Code = ?";
+			String sql = SqlCommand.CountryUpdate;
 			statement = connection.prepareStatement(sql);
+			if (Validator.validate(txtCode) == false || Validator.validate(txtCountryName) == false
+					|| Validator.validate(txtPopulation) == false || Validator.validate(txtRegion) == false) {
+				JOptionPane.showMessageDialog(null, Messages.ValidationException);
+				return;
+			}
 			statement.setString(1, txtCountryName.getText());
 			statement.setInt(2, Integer.valueOf(txtPopulation.getText()));
 			statement.setString(3, txtRegion.getText());
 			statement.setString(4, txtCode.getText());
-			int result = statement.executeUpdate();
+			statement.executeUpdate();
 			populateTable();
-			lblMessage.setText("Country Updated." + txtCode.getText());
+			JOptionPane.showMessageDialog(null, Messages.ProductUpdated);
+			// lblMessage.setText("Country Updated." + txtCode.getText());
 
 		} catch (SQLException exception) {
+			JOptionPane.showMessageDialog(null, Messages.ProductNotUpdated);
 			helper.showErrorMessage(exception);
 		} finally {
 			try {
@@ -402,5 +443,33 @@ public class test extends JFrame {
 			} catch (SQLException ex) {
 			}
 		}
+	}
+
+	// POST
+	private void btnDeletedSelectedActionPerfomerd(java.awt.event.ActionEvent evt) {
+
+		Connection connection = null;
+		DbHelper helper = new DbHelper();
+		PreparedStatement statement = null;
+		model = (DefaultTableModel) table.getModel();
+		int row = table.getSelectedRow();
+		if (row == -1) {
+			String exceptionMessage = Messages.TableNotEmpty;
+			JOptionPane.showMessageDialog(null, exceptionMessage);
+			return;
+		}
+		String delRow = SqlCommand.SelectCountryDeleteSql;
+		String CodeValue = table.getModel().getValueAt(row, 0).toString();
+
+		try {
+			connection = helper.getConnection();
+			statement = connection.prepareStatement(delRow);
+			statement.setString(1, CodeValue);
+			statement.execute();
+			JOptionPane.showMessageDialog(null, Messages.ProductDeleted);
+		} catch (Exception e) {
+			JOptionPane.showMessageDialog(null, e.getMessage());
+		}
+		populateTable();
 	}
 }
