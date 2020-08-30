@@ -150,7 +150,6 @@ public class newForm extends JFrame {
 		ResultSet resultSet;
 		ArrayList<Country> countries = null;
 		PreparedStatement statement2 = null;
-
 		try {
 			connection = dbHelper.getConnection();
 			statement2 = connection.prepareStatement(SqlCommand.SearchCountryName);

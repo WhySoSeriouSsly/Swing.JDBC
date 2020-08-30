@@ -1,8 +1,7 @@
 package Core.Utilities.Messages;
 
-public class SqlCommand {
+public class SqlCommand {	
 
-	
 	public static String SearchCountryCode="SELECT * FROM country WHERE Code=?";
 	public static String LikeCountryCode="SELECT * FROM country Code LIKE ?";
 	public static String SearchCountryName="SELECT * FROM country WHERE Name=?";

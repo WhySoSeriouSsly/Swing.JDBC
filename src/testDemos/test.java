@@ -61,6 +61,8 @@ public class test extends JFrame {
 	private JMenuItem mnSearchCountryCode;
 	private JMenuItem mnSearchCountryRegion;
 	private JLabel lblMessage;
+	private JMenuItem mnýtmNewMenuItem;
+	private JMenuItem mnýtmNewMenuItem_1;
 
 	/**
 	 * Launch the application.
@@ -82,6 +84,7 @@ public class test extends JFrame {
 	 * Create the frame.
 	 */
 	public test() {
+		setResizable(false);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setAlwaysOnTop(true);
 		setTitle("Store System\r\n");
@@ -89,6 +92,7 @@ public class test extends JFrame {
 		populateTable();
 	}
 
+//C#=MVC = JAVA&SPRÝNG FRAMEWORK
 	public void initComponents() {
 		setBounds(100, 100, 755, 592);
 		contentPane = new JPanel();
@@ -137,6 +141,12 @@ public class test extends JFrame {
 		mMenu2 = new JMenu("Menu 2");
 		mMenu2.setFont(new Font("Segoe UI", Font.PLAIN, 14));
 		menuBar.add(mMenu2);
+
+		mnýtmNewMenuItem = new JMenuItem("New menu item");
+		mMenu2.add(mnýtmNewMenuItem);
+
+		mnýtmNewMenuItem_1 = new JMenuItem("New menu item");
+		mMenu2.add(mnýtmNewMenuItem_1);
 
 		JLabel lblCountryCode = new JLabel("Code");
 
@@ -199,96 +209,117 @@ public class test extends JFrame {
 		lblMessage = new JLabel("");
 
 		JButton btnSelectDelete = new JButton("Select Delete");
+		btnSelectDelete.setIcon(
+				new ImageIcon(test.class.getResource("/javax/swing/plaf/metal/icons/ocean/close-pressed.gif")));
 		btnSelectDelete.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				btnDeletedSelectedActionPerfomerd(arg0);
 			}
 		});
+		
+		JButton btnSetFieldEmpty = new JButton("Set Empty");
+		btnSetFieldEmpty.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+				btnSetEmptyFieldActionPerformed(arg0);
+			}
+
+			
+		});
 
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup()
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addComponent(menuBar, GroupLayout.PREFERRED_SIZE, 711, GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(64)
-								.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
-								.addGap(42)
-								.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
-								.addGap(37)
-								.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(91).addGroup(gl_contentPane
-								.createParallelGroup(Alignment.LEADING)
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(lblCountryCode, GroupLayout.PREFERRED_SIZE, 46,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(10)
-										.addComponent(txtCode, GroupLayout.PREFERRED_SIZE, 170,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(41)
-										.addComponent(lblPopulation, GroupLayout.PREFERRED_SIZE, 56,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(10)
-										.addComponent(txtPopulation, GroupLayout.PREFERRED_SIZE, 170,
-												GroupLayout.PREFERRED_SIZE))
-								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(lblCountryName, GroupLayout.PREFERRED_SIZE, 46,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(10)
-										.addComponent(txtCountryName, GroupLayout.PREFERRED_SIZE, 170,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(41)
-										.addComponent(lblCountryRegion, GroupLayout.PREFERRED_SIZE, 56,
-												GroupLayout.PREFERRED_SIZE)
-										.addGap(10).addComponent(txtRegion, GroupLayout.PREFERRED_SIZE, 170,
-												GroupLayout.PREFERRED_SIZE))))
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(64).addGroup(gl_contentPane
-								.createParallelGroup(Alignment.LEADING)
+		gl_contentPane.setHorizontalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(64)
+							.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+							.addGap(42)
+							.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE)
+							.addGap(37)
+							.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 156, GroupLayout.PREFERRED_SIZE))
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(64)
+							.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
 								.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 609, GroupLayout.PREFERRED_SIZE)
 								.addGroup(gl_contentPane.createSequentialGroup()
-										.addComponent(lblSearchKey, GroupLayout.PREFERRED_SIZE, 71,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.UNRELATED)
-										.addComponent(txtSearchKey, GroupLayout.PREFERRED_SIZE, 146,
-												GroupLayout.PREFERRED_SIZE)
-										.addPreferredGap(ComponentPlacement.RELATED, 279, Short.MAX_VALUE)
-										.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-												.addGroup(Alignment.TRAILING,
-														gl_contentPane.createSequentialGroup().addComponent(lblMessage)
-																.addGap(1))
-												.addGroup(Alignment.TRAILING,
-														gl_contentPane.createSequentialGroup()
-																.addComponent(btnSelectDelete).addGap(48)))))))
-				.addContainerGap(24, Short.MAX_VALUE)));
-		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING).addGroup(gl_contentPane
-				.createSequentialGroup()
-				.addComponent(menuBar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE).addGap(34)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE).addComponent(lblSearchKey)
-						.addComponent(txtSearchKey, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addComponent(lblMessage).addComponent(btnSelectDelete))
-				.addPreferredGap(ComponentPlacement.UNRELATED)
-				.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 271, GroupLayout.PREFERRED_SIZE).addGap(18)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(lblCountryCode))
-						.addComponent(txtCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(lblPopulation))
-						.addComponent(txtPopulation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(34)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(lblCountryName))
-						.addComponent(txtCountryName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE)
-						.addGroup(gl_contentPane.createSequentialGroup().addGap(3).addComponent(lblCountryRegion))
-						.addComponent(txtRegion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE,
-								GroupLayout.PREFERRED_SIZE))
-				.addGap(18)
-				.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+									.addComponent(lblSearchKey, GroupLayout.PREFERRED_SIZE, 71, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addComponent(txtSearchKey, GroupLayout.PREFERRED_SIZE, 146, GroupLayout.PREFERRED_SIZE)
+									.addPreferredGap(ComponentPlacement.RELATED, 269, Short.MAX_VALUE)
+									.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING)
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addComponent(lblMessage)
+											.addGap(1))
+										.addGroup(gl_contentPane.createSequentialGroup()
+											.addComponent(btnSelectDelete)
+											.addGap(48))))))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.TRAILING, false)
+							.addGroup(gl_contentPane.createSequentialGroup()
+								.addGap(91)
+								.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(lblCountryCode, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+										.addGap(10)
+										.addComponent(txtCode, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+										.addGap(41)
+										.addComponent(lblPopulation, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+										.addGap(10)
+										.addComponent(txtPopulation, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+										.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+										.addComponent(btnSetFieldEmpty))
+									.addGroup(gl_contentPane.createSequentialGroup()
+										.addComponent(lblCountryName, GroupLayout.PREFERRED_SIZE, 46, GroupLayout.PREFERRED_SIZE)
+										.addGap(10)
+										.addComponent(txtCountryName, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE)
+										.addGap(41)
+										.addComponent(lblCountryRegion, GroupLayout.PREFERRED_SIZE, 56, GroupLayout.PREFERRED_SIZE)
+										.addGap(10)
+										.addComponent(txtRegion, GroupLayout.PREFERRED_SIZE, 170, GroupLayout.PREFERRED_SIZE))))
+							.addComponent(menuBar, Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 711, GroupLayout.PREFERRED_SIZE)))
+					.addContainerGap(14, Short.MAX_VALUE))
+		);
+		gl_contentPane.setVerticalGroup(
+			gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup()
+					.addComponent(menuBar, GroupLayout.PREFERRED_SIZE, 32, GroupLayout.PREFERRED_SIZE)
+					.addGap(34)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+						.addComponent(lblSearchKey)
+						.addComponent(txtSearchKey, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addComponent(lblMessage)
+						.addComponent(btnSelectDelete))
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(scrollPane, GroupLayout.PREFERRED_SIZE, 271, GroupLayout.PREFERRED_SIZE)
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblCountryCode))
+						.addComponent(txtCode, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblPopulation))
+						.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
+							.addComponent(txtPopulation, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addComponent(btnSetFieldEmpty)))
+					.addGap(34)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblCountryName))
+						.addComponent(txtCountryName, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addGroup(gl_contentPane.createSequentialGroup()
+							.addGap(3)
+							.addComponent(lblCountryRegion))
+						.addComponent(txtRegion, GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+					.addGap(18)
+					.addGroup(gl_contentPane.createParallelGroup(Alignment.BASELINE)
 						.addComponent(btnDelete, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnSave, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
 						.addComponent(btnUpdate, GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-				.addGap(66)));
+					.addGap(66))
+		);
 		contentPane.setLayout(gl_contentPane);
 
 		// pack()=lock.
@@ -316,17 +347,22 @@ public class test extends JFrame {
 		}
 	}
 
+	private Statement statement2 = null;
+	private ResultSet resultSet;
+	private Connection connection = null;
+	private DbHelper helper = new DbHelper();
+	private PreparedStatement statement = null;
+
 	private ArrayList<Country> getCountries() throws SQLException {
 		Connection connection = null;
 		DbHelper dbHelper = new DbHelper();
-		Statement statement = null;
-		ResultSet resultSet;
+
 		ArrayList<Country> countries = null;
 
 		try {
 			connection = dbHelper.getConnection();
-			statement = connection.createStatement();
-			resultSet = statement.executeQuery(SqlCommand.SearchCountry);
+			statement2 = connection.createStatement();
+			resultSet = statement2.executeQuery(SqlCommand.SearchCountry);
 			countries = new ArrayList<Country>();
 			while (resultSet.next()) {
 				countries.add(new Country(resultSet.getString("Code"), resultSet.getString("Name"),
@@ -336,19 +372,18 @@ public class test extends JFrame {
 		} catch (SQLException exception) {
 			dbHelper.showErrorMessage(exception);
 		} finally {
-			statement.close();
+			statement2.close();
 			connection.close();
 		}
 		return countries;
+
 	}
 
 	private void btnAddActionPerformed(java.awt.event.ActionEvent evt) {
-		Connection connection = null;
-		DbHelper dbHelper = new DbHelper();
-		PreparedStatement statement = null;
+
 		try {
-			connection = dbHelper.getConnection();
-			String sql = SqlCommand.CountryAdd;
+			connection = helper.getConnection();
+			String sql = SqlCommand.CountryAdd;// magic string
 			statement = connection.prepareStatement(sql);
 			if (Validator.validate(txtCode) == false || Validator.validate(txtCountryName) == false
 					|| Validator.validate(txtPopulation) == false || Validator.validate(txtRegion) == false) {
@@ -365,7 +400,7 @@ public class test extends JFrame {
 			// lblMessage.setText("Country Added");
 		} catch (SQLException exception) {
 			JOptionPane.showMessageDialog(null, Messages.ProductNotAdded);
-			dbHelper.showErrorMessage(exception);
+			helper.showErrorMessage(exception);
 
 		} finally {
 			try {
@@ -375,13 +410,15 @@ public class test extends JFrame {
 
 			}
 		}
+		SetFieldEmpty();
+		// DB , Country ,Session
+		// Session.add(Country);
+		// _countryService.GetALL();
 	}
-	//POST
+
+	// POST
 	private void btnDeleteActionPerformed(java.awt.event.ActionEvent evt) {
-		Connection connection = null;
-		DbHelper helper = new DbHelper();
-		PreparedStatement statement = null;
-		ResultSet resultSet;
+
 		try {
 			connection = helper.getConnection();
 			String sql = SqlCommand.CountryDelete;
@@ -407,14 +444,12 @@ public class test extends JFrame {
 
 			}
 		}
+		SetFieldEmpty();
 	}
 
 	// POST
 	private void btnUpdateActionPerformed(java.awt.event.ActionEvent evt) {
-		Connection connection = null;
-		DbHelper helper = new DbHelper();
-		PreparedStatement statement = null;
-		ResultSet resultSet;
+
 		try {
 			connection = helper.getConnection();
 			String sql = SqlCommand.CountryUpdate;
@@ -443,14 +478,12 @@ public class test extends JFrame {
 			} catch (SQLException ex) {
 			}
 		}
+		SetFieldEmpty();
 	}
-
 	// POST
+
 	private void btnDeletedSelectedActionPerfomerd(java.awt.event.ActionEvent evt) {
 
-		Connection connection = null;
-		DbHelper helper = new DbHelper();
-		PreparedStatement statement = null;
 		model = (DefaultTableModel) table.getModel();
 		int row = table.getSelectedRow();
 		if (row == -1) {
@@ -471,5 +504,14 @@ public class test extends JFrame {
 			JOptionPane.showMessageDialog(null, e.getMessage());
 		}
 		populateTable();
+	}
+	private void SetFieldEmpty() {
+		txtCountryName.setText("");
+		txtPopulation.setText("");
+		txtRegion.setText("");
+		txtCode.setText("");
+	}
+	private void btnSetEmptyFieldActionPerformed(ActionEvent arg0) {
+		 SetFieldEmpty() ;	
 	}
 }

@@ -1,8 +1,10 @@
 package Entities;
 
+
 public class Country {
-	   private String code;
-	   public String getCode() {
+	private String code;
+
+	public String getCode() {
 		return code;
 	}
 
@@ -35,16 +37,15 @@ public class Country {
 	}
 
 	private String name;
-	   private int population;
-	   private String region;
+	private int population;
+	private String region;
 
-	   public Country(String code, String name, int population, String region){
-	       this.code = code;
-	       this.name = name;
-	       this.population = population;
-	       this.region = region;
-	      
+	public Country(String code, String name, int population, String region) {
+		this.code = code;
+		this.name = name;
+		this.population = population;
+		this.region = region;
 
-}
-	   
+	}
+
 }
